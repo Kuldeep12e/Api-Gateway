@@ -44,9 +44,31 @@ async function signIn(data) {
 
 }
 
+
+async function isAuthenticated(token) {
+   try{
+     const response = AUTH.verifyToken(token);
+     if(!response){
+       throw new AppError('Invalid JWT token', StatusCodes.BAD_REQUEST);
+     }
+     const user = await userRepository.get(response.id);
+     if(!user){
+       throw new AppError('No user found for the given token', StatusCodes.NOT_FOUND);
+     }
+     return user;
+   }catch (error) {
+     if(error instanceof AppError){
+       throw error;
+     }
+     throw new AppError("Something went wrong while signing in", StatusCodes.INTERNAL_SERVER_ERROR);
+   }
+
+}
+
    
 
 module.exports = {
     createUser,
-    signIn
+    signIn,
+    isAuthenticated
 }

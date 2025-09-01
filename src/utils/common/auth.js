@@ -15,7 +15,17 @@ async function checkPassword(plainPassword, encryptedPassword) {
         }
  }
 
+ function verifyToken(token) {
+        try {
+            const decoded = jwt.verify(token, SECRET_KEY);
+            return decoded;
+        } catch (error) {
+            throw error;
+        }
+ }
+
 module.exports = {
     checkPassword,
-    createToken
+    createToken,
+    verifyToken
 }
