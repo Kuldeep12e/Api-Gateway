@@ -4,6 +4,8 @@ const userRepository = new UserRepository();
 const {AUTH} = require('../utils/common');
 const AppError = require('../utils/errors/app-error');
 const {StatusCodes} = require('http-status-codes');
+const { RoleRepository } = require('../repositories');
+const roleRepository = new RoleRepository();
 
 
 function createUser(data) {
