@@ -30,6 +30,9 @@ app.use('/bookingsService', createProxyMiddleware({
   },
 }));
 
+app.get("/ping" , (req , res) =>{
+  res.json({msg : 'ok'})
+})
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,3 +42,7 @@ app.listen(ServerConfig.PORT, () => {
     console.log(`Successfully started the server on PORT : ${ServerConfig.PORT}`);
     
 });
+
+
+module.exports = app;
+
