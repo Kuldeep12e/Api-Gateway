@@ -9,7 +9,8 @@ describe("sample test endpoint", () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ msg: "ok" });
   });
-
+   
+  
   afterAll((done) => {
     server.close(done);  // closes the server after tests
   });
