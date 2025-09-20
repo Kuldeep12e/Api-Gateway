@@ -1,0 +1,29 @@
+# This workflow will run tests using Node.js when I push to master
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Node.js Package  # name of the workflow
+
+on:                # when this workflow should be triggered 
+  pull_request:
+    branches: [master]  # when I push something to master branch this workflow will be triggered
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # it will run on GitHub-hosted runner (use self-hosted if you want your own machine)
+    strategy:
+      matrix:  
+        node-version: [18.x]  # define which Node.js versions to test against (here 18.x)
+
+    steps:
+      - uses: actions/checkout@v4  # fetch the source code of our repo in the environment
+
+      - name: Use Node.js ${{ matrix.node-version }}  # setup Node.js in the environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci   # install dependencies in a clean way
+
+      - name: Run tests
+        run: npm test # run tests
